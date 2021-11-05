@@ -22,6 +22,7 @@ if (currentOS.isWindows()) {
 }
 
 apply from: "$rootDir/gradle/module_gen.gradle"
+apply from: "$rootDir/gradle/jackson.gradle"
 
 dependencies {
     compileOnly "org.openjfx:javafx-base:16:${platform}"
