@@ -212,7 +212,7 @@ public class GuiSavegameEntry {
             });
             melt.getStyleClass().add(CLASS_MELT);
             GuiTooltips.install(melt, PdxuI18n.get("MELT_SAVEGAME"));
-            SavegameContext.withSavegameAsync(e, ctx -> {
+            SavegameContext.withSavegameInfoContextAsync(e, ctx -> {
                 if (ctx.getInfo().getData().isBinary()) {
                     dynamicButtons.getChildren().add(melt);
                 }
