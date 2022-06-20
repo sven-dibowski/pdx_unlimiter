@@ -33,9 +33,8 @@ public class GuiSavegameCampaign {
         btn.getStyleClass().add(CLASS_CAMPAIGN_LIST_ENTRY);
 
         {
-            SavegameCampaign<T, I> ca = (SavegameCampaign<T, I>) c;
             SavegameContext.withCollectionContext(c, gi -> {
-                ObservableValue<Node> prop = gi.getGuiFactory().createImage(ca);
+                ObservableValue<Node> prop = gi.getGuiFactory().createImage(c);
                 prop.addListener((change, o, n) -> {
                     Platform.runLater(() -> {
                         btn.getChildren().set(0, prop.getValue());
@@ -59,8 +58,7 @@ public class GuiSavegameCampaign {
             name.textProperty().bindBidirectional(c.nameProperty());
             top.getChildren().add(name);
 
-            Button del = new JFXButton();
-            del.setGraphic(new FontIcon());
+            Button del = new JFXButton(null, new FontIcon());
             del.getStyleClass().add("delete-button");
             del.setOnMouseClicked((m) -> {
                 if (GuiDialogHelper.showBlockingAlert(alert -> {
@@ -80,15 +78,12 @@ public class GuiSavegameCampaign {
         {
             HBox bottom = new HBox();
 
-            if (c instanceof SavegameCampaign) {
-                SavegameCampaign<T, I> ca = (SavegameCampaign<T, I>) c;
-                Label date = new Label();
-                SavegameContext.withCollectionContext(c, gi -> {
-                    date.textProperty().bind(gi.getGuiFactory().createInfoString(ca));
-                });
-                date.getStyleClass().add(CLASS_DATE);
-                bottom.getChildren().add(date);
-            }
+            Label date = new Label();
+            SavegameContext.withCollectionContext(c, gi -> {
+                date.textProperty().bind(gi.getGuiFactory().createInfoString(c));
+            });
+            date.getStyleClass().add(CLASS_DATE);
+            bottom.getChildren().add(date);
 
             Region spacer = new Region();
             bottom.getChildren().add(spacer);
